@@ -5,9 +5,9 @@
 #include <BlynkSimpleEsp8266.h>
 
 
-const char *ssid =     "WIFI_NAME";         // ใส่ชื่อ WiFi ของเราตรงนี้
-const char *password = "WIFI_PASSWORD";     // ใส่ Password WiFi ของเราตรงนี้
-char auth[] = "xxxxxxxxxxxxxxxxxxxxxx";     // ใส่ Token ที่ได้จาก blynk ตรงนี้
+const char *ssid =     "WIFI_NAME";         // รฃรรจยชร—รจร WiFi ยขรยงร รร’ยตรยงยนร•รฉ
+const char *password = "WIFI_PASSWORD";     // รฃรรจ Password WiFi ยขรยงร รร’ยตรยงยนร•รฉ
+char auth[] = "xxxxxxxxxxxxxxxxxxxxxx";     // รฃรรจ Token ยทร•รจรคยดรฉยจร’ยก blynk ยตรยงยนร•รฉ
 
 
 
@@ -15,15 +15,15 @@ char auth[] = "xxxxxxxxxxxxxxxxxxxxxx";     // ใส่ Token ที่ได้จาก blynk ตรงนี้
  * IRRemote
  */
     const uint16_t kIrLed = 4;  // ESP8266 GPIO pin to use. Recommended: 4 (D2).
-    IRPanasonicAc ac(kIrLed);   // สร้าง Object ที่ใช้คุมแอร์แบบ Panasonic (หากเป็นยี่ห้ออื่นให้ดูตัวอย่างใน Library IRRemoteESP8266)
+    IRPanasonicAc ac(kIrLed);   // รรรฉร’ยง Object ยทร•รจรฃยชรฉยครรรกรรรฌรกยบยบ Panasonic (รร’ยกร ยปรงยนรร•รจรรฉรรร—รจยนรฃรรฉยดรยตร‘รรรรจร’ยงรฃยน Library IRRemoteESP8266)
     
     
-    int temp_ac = 25; //อุณหภูมิตั้งต้น
+    int temp_ac = 25; //รรยณรร€รรร”ยตร‘รฉยงยตรฉยน
     typedef enum{
-      REQ_NONE =0,  //ไม่มีคำสั่ง
-      REQ_ON_AC,    //คำสั่งเปิดแอร์
-      REQ_OFF_AC,   //คำสั่งปิดแอร์
-      REQ_TEMP_AC   //คำสั่งปรับอุณหภูมิ
+      REQ_NONE =0,  //รครรจรร•ยคร“รร‘รจยง
+      REQ_ON_AC,    //ยคร“รร‘รจยงร ยปร”ยดรกรรรฌ
+      REQ_OFF_AC,   //ยคร“รร‘รจยงยปร”ยดรกรรรฌ
+      REQ_TEMP_AC   //ยคร“รร‘รจยงยปรร‘ยบรรยณรร€รรร”
     }req_en;
     
     req_en req;
@@ -33,11 +33,11 @@ char auth[] = "xxxxxxxxxxxxxxxxxxxxxx";     // ใส่ Token ที่ได้จาก blynk ตรงนี้
 
 
 /**
- * ตั้งค่า BLYNK
+ * ยตร‘รฉยงยครจร’ BLYNK
  */
     #define BLYNK_PRINT Serial
 
-    //เมื่อมีการกดปุ่มเปิดแอร์ (virtual pin 1) ฟังก์ชันนี้จะทำงาน
+    //ร รร—รจรรร•ยกร’รยกยดยปรรจรร ยปร”ยดรกรรรฌ (virtual pin 1) ยฟร‘ยงยกรฌยชร‘ยนยนร•รฉยจรยทร“ยงร’ยน
     BLYNK_WRITE(V1)
     {
       if(param.asInt()) {
@@ -46,7 +46,7 @@ char auth[] = "xxxxxxxxxxxxxxxxxxxxxx";     // ใส่ Token ที่ได้จาก blynk ตรงนี้
       }
     }
 
-    //เมื่อมีการกดปุ่มปิดแอร์ (virtual pin 2) ฟังก์ชันนี้จะทำงาน
+    //ร รร—รจรรร•ยกร’รยกยดยปรรจรยปร”ยดรกรรรฌ (virtual pin 2) ยฟร‘ยงยกรฌยชร‘ยนยนร•รฉยจรยทร“ยงร’ยน
     BLYNK_WRITE(V2)
     {
       if(param.asInt()) {
@@ -55,27 +55,18 @@ char auth[] = "xxxxxxxxxxxxxxxxxxxxxx";     // ใส่ Token ที่ได้จาก blynk ตรงนี้
       }
     }
 
-    //เมื่อมีการปรับอุณหภูมิ (virtual pin 0) ฟังก์ชันนี้จะทำงาน
+    //ร รร—รจรรร•ยกร’รยปรร‘ยบรรยณรร€รรร” (virtual pin 0) ยฟร‘ยงยกรฌยชร‘ยนยนร•รฉยจรยทร“ยงร’ยน
     BLYNK_WRITE(V0)
     {
       temp_ac = param.asInt();
       Serial.println("Req temp = " + String(temp_ac));
       req = REQ_TEMP_AC;
     }
-    BlynkTimer timer;  //เรียกใช้การตั้งเวลาของ Blynk
+    BlynkTimer timer;  //ร รร•รยกรฃยชรฉยกร’รยตร‘รฉยงร รร…ร’ยขรยง Blynk
     
 
 /**
- * แสดงสถานะของข้อมูลที่เราจะส่งออกไปยังแอร์
+ * รกรยดยงรยถร’ยนรยขรยงยขรฉรรรร…ยทร•รจร รร’ยจรรรจยงรรยกรคยปรร‘ยงรกรรรฌ
  */
     
-    void printState() {
-      // Display the settings.
-      Serial.println("Panasonic A/C remote is in the following state:");
-      Serial.printf("  %s\n", ac.toString().c_str());
-      // Display the encoded IR sequence.
-      unsigned char* ir_code = ac.getRaw();
-      Serial.print("IR Code: 0x");
-      for (uint8_t i = 0; i < kPanasonicAcStateLength; i++)
-        Serial.printf("%02X", ir_code[i]);
-      Serial.println();
+    
